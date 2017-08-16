@@ -5,6 +5,9 @@ using UnityEngine;
 public class PsiAttack : MonoBehaviour {
 
     private PsiDefense psiDefense;
+    private float psiDamage;
+    public float psiDamageMin;
+    public float psiDamageMax;
 
     // Use this for initialization
     void Start () {
@@ -20,7 +23,7 @@ public class PsiAttack : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.name);
+                
                 psiDefense = hit.collider.GetComponent<PsiDefense>();
                 Attack();
             }
@@ -29,6 +32,9 @@ public class PsiAttack : MonoBehaviour {
 
     void Attack()
     {
-
+        psiDamage = Random.Range(psiDamageMin, psiDamageMax);
+        psiDamage = Mathf.Round(psiDamage);
+        Debug.Log(psiDamage + " damage to " + psiDefense.name);
+        psiDefense.TakeDamage(psiDamage);
     }
 }
